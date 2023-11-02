@@ -82,3 +82,4 @@ docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 \
     $docker_user/belle:$tag \
     --sshd_port 2201 --cmd "echo 'export HF_HOME=$hf_home' >> /root/.bashrc && \
                             sleep infinity"
+                            
