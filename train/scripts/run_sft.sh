@@ -2,21 +2,21 @@
 # export CUDA_VISIBLE_DEVICES='0,1,2,3,4,5,6,7'
 export CUDA_VISIBLE_DEVICES='0,1,2,3'
 export WANDB_PROJECT=lifedb-lora
-export WANDB_RUN_ID=trial-5
+export WANDB_RUN_ID=flow-generated-trial-11
 export WANDB_RESUME=allow
 export ABS_PATH=/home/ubuntu
 export PYTHONPATH="$ABS_PATH/BELLE/train"
 model_name_or_path=/home/ubuntu/lifeDB/python/BELLE-Llama2-13B-chat-0.4M-gptq-4bit/ # or bloomz-7b1-mt
 model_name_or_path=BELLE-2/BELLE-Llama2-13B-chat-0.4M
 
-train_file=/home/ubuntu/BELLE/dataset.json
-validation_file=/home/ubuntu/BELLE/dataset.json
+train_file=/home/ubuntu/BELLE/train_dataset-version-1.json
+validation_file=/home/ubuntu/BELLE/validation_dataset-version-1.json
 output_dir="$ABS_PATH/BELLE/saved_models/${WANDB_PROJECT}-${WANDB_RUN_ID}"
 mkdir -p ${output_dir}
 
 cache_dir=hf_cache_dir
 mkdir -p ${cache_dir}
-cutoff_len=1024
+cutoff_len=2048
 
 #FT
 # torchrun --nproc_per_node 8 src/entry_point/sft_train.py \
@@ -79,7 +79,7 @@ torchrun --nproc_per_node 4 src/entry_point/sft_train.py \
     --cache_dir ${cache_dir} \
     --output_dir ${output_dir} \
     --overwrite_output_dir \
-    --resume_from_checkpoint ${output_dir}/checkpoint-336
+    # --resume_from_checkpoint ${output_dir}/checkpoint-336
     # --use_flash_attention
 
 # LoRA without 8bit
